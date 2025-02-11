@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votación</title>
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #d9534f;
+        }
+
+        form {
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            padding: 10px;
+            margin: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #c9302c;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+            text-align: left;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Formulario de Votación</h2>
+    <form id="formVotacion">
+        <input type="text" id="nombre" placeholder="Nombre" required><br>
+        <input type="text" id="cedula" placeholder="Cédula" required><br>
+        <input type="text" id="direccion" placeholder="Dirección" required><br>
+        <input type="text" id="telefono" placeholder="Teléfono" required><br>
+        <input type="text" id="ciudad" value="Cuenca" readonly><br>
+        <select id="estadoCivil">
+            <option value="Soltero/a">Soltero/a</option>
+            <option value="Casado/a">Casado/a</option>
+            <option value="Divorciado/a">Divorciado/a</option>
+            <option value="Viudo/a">Viudo/a</option>
+        </select><br>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <h2>Lista de Votantes</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cédula</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Ciudad</th>
+                <th>Estado Civil</th>
+            </tr>
+        </thead>
+        <tbody id="votersTable"></tbody>
+    </table>
+
+    <h2>Lugar de Votación</h2>
+    <p id="lugarVotacion">El lugar de votación estará aquí.</p>
+
+    <div id="map"></div>
+</body>
+</html>
