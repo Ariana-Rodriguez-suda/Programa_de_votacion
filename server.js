@@ -41,3 +41,20 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });
+app.post('/api/votar', (req, res) => {
+    const nuevoVotante = req.body;
+
+    if (!nuevoVotante.nombre || !nuevoVotante.cedula || !nuevoVotante.direccion) {
+        return res.status(400).json({ message: 'Faltan datos requeridos' });
+    }
+
+    // Agregar votante al arreglo
+    votantes.push(nuevoVotante);
+
+    // Responder con un mensaje de éxito, incluyendo la dirección
+    res.status(200).json({ 
+        message: 'Votante registrado correctamente', 
+        lugarVotacion: 'Centro de Votación Cuenca, Av. 12 de Abril',
+        direccion: nuevoVotante.direccion // Pasamos la dirección para usarla en el mapa
+    });
+});

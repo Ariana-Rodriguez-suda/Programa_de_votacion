@@ -18,7 +18,7 @@ document.getElementById("formVotacion").addEventListener("submit", function (e) 
     .then(response => response.json())
     .then(data => {
         alert("Votante registrado: " + data.message);
-        mostrarMapa(data.lugarVotacion);
+        mostrarMapa(data.direccion); // Usamos la dirección que se pasó
         actualizarTabla(); // Actualizar la tabla de votantes
     })
     .catch(error => {
@@ -28,7 +28,7 @@ document.getElementById("formVotacion").addEventListener("submit", function (e) 
 });
 
 function actualizarTabla() {
-    fetch("http://localhost:3000/api/votantes")  // Obtener todos los votantes
+    fetch("http://localhost:3000/api/votantes")
     .then(response => response.json())
     .then(votantes => {
         const tbody = document.getElementById("votersTable");
@@ -51,19 +51,32 @@ function actualizarTabla() {
     });
 }
 
-function mostrarMapa(lugar) {
-    // Crear el mapa centrado en Cuenca, Ecuador (coordenadas geográficas: lat, lng)
-    var map = L.map('map').setView([-2.9000, -79.0040], 13); // Coordenadas de Cuenca
+function mostrarMapa(direccion) {
+    const geocoder = new L.Control.Geocoder.Nominatim();
 
-    // Agregar capa de OpenStreetMap
+    // Limpiar el mapa anterior, si existe
+    if (typeof map !== 'undefined') {
+        map.remove();
+    }
+
+    // Inicializar el mapa
+    const map = L.map('map').setView([0, 0], 2); // Vista inicial, por defecto (lat, lng)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // Agregar un marcador en la ubicación de Cuenca
-    var marker = L.marker([-2.9000, -79.0040]).addTo(map);
-    marker.bindPopup("<b>Ciudad de Cuenca</b><br>Lugar de votación").openPopup();
-}
+    geocoder.geocode(direccion, function(results) {
+        if (results.length > 0) {
+            const latLng = results[0].center;
+            map.setView(latLng, 15); // Cambiar el centro del mapa a la ubicación encontrada
 
-// Llamar a la función para inicializar el mapa
-initMap();
+            L.marker(latLng).addTo(map)
+                .bindPopup(`<b>Lugar de votación:</b><br>${direccion}`)
+                .openPopup();
+
+            document.getElementById("lugarVotacion").textContent = `Lugar de votación: ${direccion}`;
+        } else {
+            alert("No se pudo encontrar la dirección.");
+        }
+    });
+}
