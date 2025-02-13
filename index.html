@@ -6,9 +6,7 @@
     <title>Votación</title>
     <script defer src="script.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
-
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,15 +14,18 @@
             color: #333;
             padding: 20px;
         }
+
         h2 {
             color: #d9534f;
         }
+
         form {
             background-color: #f1f1f1;
             padding: 20px;
             border-radius: 5px;
             margin-bottom: 20px;
         }
+
         input, select {
             padding: 10px;
             margin: 5px;
@@ -33,6 +34,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         button {
             background-color: #d9534f;
             color: white;
@@ -42,31 +44,31 @@
             border-radius: 5px;
             width: 100%;
         }
+
         button:hover {
             background-color: #c9302c;
         }
+
         table {
             width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
         }
+
         table, th, td {
             border: 1px solid #ccc;
             text-align: left;
             padding: 10px;
         }
+
         th {
             background-color: #f8f9fa;
         }
+
         #map {
             height: 400px;
             width: 100%;
             margin-top: 20px;
-        }
-        #mensajeRegistro {
-            font-weight: bold;
-            color: green;
-            margin-top: 10px;
         }
     </style>
 </head>
@@ -87,10 +89,8 @@
         <button type="submit">Enviar</button>
     </form>
 
-    <p id="mensajeRegistro"></p>
-
     <h2>Lista de Votantes</h2>
-    <table>
+    <table border="1">
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -109,4 +109,4 @@
 
     <div id="map"></div>
 </body>
-</html>
+</html>  
